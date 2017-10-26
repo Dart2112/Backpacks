@@ -1,0 +1,6 @@
+InventoryNameFormat: "&9%size% backpack number &c#&a%number%"
+BackpacksPerSize: 10
+Size:
+  small: 9
+  medium: 27
+  large: 54

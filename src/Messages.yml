@@ -1,0 +1,12 @@
+InventoryClosed: "&7You closed the backpack&c!"
+InventoryOpen: "&7You open the %size% backpack&a!"
+Small: "Small"
+Medium: "Medium"
+Large: "Large"
+Error:
+  NoPermission: "&7You don't have permission to do that&c!"
+  NumberTooBig: "&7That backpack number that you are trying to entering is too large, please try again with a number between &c0 &7and &c%max%"
+  IncorrectSize: "&7That backpack size is not valid, please enter correct size and number&a!"
+  PlayerDoesntExist: "&7Player with that name doesn't exist&c!"
+  MustBePlayer: "You must be a player to do that!"
+  NumberFormatException: "&7You need to enter vaild backpack size and number,try again&a!"

@@ -1,0 +1,23 @@
+name: Backpacks
+version: 2.0.0
+main: net.lapismc.backpacks.Backpacks
+authors: [Dart2112, ElectroBoy2560]
+commands:
+  backpacks:
+    description: Command for accessing your backpacks
+permissions:
+  backpacks.small:
+    decsription: Players with this permission will be able to access their small backpacks
+    default: false
+  backpacks.medium:
+    decsription: Players with this permission will be able to access their medium backpacks
+    default: false
+  backpacks.large:
+    decsription: Players with this permission will be able to access their large backpacks
+    default: false
+  backpacks.edit:
+    default: op
+    decsription: Players with this permission will be able to access, clear and edit other players backpacks
+  backpacks.see:
+    default: false
+    description: Player with this permissions will be able to see other players backpacks
