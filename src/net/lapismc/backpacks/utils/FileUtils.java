@@ -83,7 +83,7 @@ public class FileUtils {
 
     private void saveInventory(Inventory inventory, FileConfiguration file, String path) {
         int i = 0;
-
+        file.set(path, null);
         for (ItemStack im : inventory.getContents()) {
             file.set(path + ".contents." + i, im);
             i++;

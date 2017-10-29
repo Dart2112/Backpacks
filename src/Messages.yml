@@ -1,5 +1,7 @@
 InventoryClosed: "&7You closed the backpack&c!"
 InventoryOpen: "&7You open the %size% backpack&a!"
+Reload: "&aYou have successfully reloaded the Backpack plugin!"
+Clear: "&aYou have successfully cleared %Player%'s Backpack!"
 Small: "Small"
 Medium: "Medium"
 Large: "Large"

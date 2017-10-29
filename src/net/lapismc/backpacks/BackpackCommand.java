@@ -77,11 +77,11 @@ public class BackpackCommand implements CommandExecutor {
                 p.sendMessage(plugin.getColoredMessage("InventoryOpen").replaceAll("%size%", size));
                 p.openInventory(i);
             } else if (args.length == 4 && args[3].equalsIgnoreCase("clear")) {
-                String size = args[0];
                 if (!p.hasPermission("backpacks.edit")) {
                     p.sendMessage(plugin.getColoredMessage("Error.NoPermission"));
                     return true;
                 }
+                String size = args[0];
                 String number = args[1];
                 if (!isSafe(p, size, number)) {
                     return true;
@@ -96,9 +96,19 @@ public class BackpackCommand implements CommandExecutor {
                     p.sendMessage(plugin.getColoredMessage("Error.PlayerDoesntExist"));
                     return true;
                 }
-                Inventory inv = Bukkit.createInventory(null, Integer.parseInt(size), ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("InventoryNameFormat")
+                Integer sizeNumb = 0;
+                Integer sizeValue = parseSize(size);
+                if (sizeValue == 1) {
+                    sizeNumb = plugin.getConfig().getInt("Size.small");
+                } else if (sizeValue == 2) {
+                    sizeNumb = plugin.getConfig().getInt("Size.medium");
+                } else if (sizeValue == 3) {
+                    sizeNumb = plugin.getConfig().getInt("Size.large");
+                }
+                Inventory inv = Bukkit.createInventory(null, sizeNumb, ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("InventoryNameFormat")
                         .replaceAll("%player%", target.getName()).replaceAll("%number%", number + "").replaceAll("%size%", size)));
                 plugin.fUtils.saveInventory(inv, target, Integer.parseInt(number));
+                p.sendMessage(plugin.getColoredMessage("Clear"));
             }
         }
         return true;
@@ -181,11 +191,11 @@ public class BackpackCommand implements CommandExecutor {
     }
 
     private void sendHelp(CommandSender sender) {
-        sender.sendMessage(ChatColor.GREEN + "[" + ChatColor.RED + "backpacks" + ChatColor.GREEN + "]");
-        sender.sendMessage(ChatColor.RED + "/" + ChatColor.GOLD + "backpacks " + ChatColor.GRAY + "[size] [number]");
-        sender.sendMessage(ChatColor.RED + "/" + ChatColor.GOLD + "backpacks " + ChatColor.GRAY + "[size] [number] [player]");
-        sender.sendMessage(ChatColor.RED + "/" + ChatColor.GOLD + "backpacks " + ChatColor.GRAY + "[size] [number] [player] clear");
-        sender.sendMessage(ChatColor.RED + "/" + ChatColor.GOLD + "backpacks reload");
+        sender.sendMessage(ChatColor.GREEN + "[" + ChatColor.RED + "Backpacks" + ChatColor.GREEN + "]");
+        sender.sendMessage(ChatColor.RED + "/" + ChatColor.YELLOW + "backpacks " + ChatColor.GRAY + "[size] [number]");
+        sender.sendMessage(ChatColor.RED + "/" + ChatColor.YELLOW + "backpacks " + ChatColor.GRAY + "[size] [number] [player]");
+        sender.sendMessage(ChatColor.RED + "/" + ChatColor.YELLOW + "backpacks " + ChatColor.GRAY + "[size] [number] [player] clear");
+        sender.sendMessage(ChatColor.RED + "/" + ChatColor.YELLOW + "backpacks reload");
     }
 
 }
