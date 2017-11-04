@@ -11,6 +11,8 @@ import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 public class FileUtils {
@@ -82,13 +84,9 @@ public class FileUtils {
     }
 
     private void saveInventory(Inventory inventory, FileConfiguration file, String path) {
-        int i = 0;
         file.set(path, null);
-        for (ItemStack im : inventory.getContents()) {
-            file.set(path + ".contents." + i, im);
-            i++;
-        }
-
+        List<ItemStack> inv = Arrays.asList(inventory.getContents());
+        file.set(path + ".contents", inv);
         file.set(path + ".maxstacksize", inventory.getMaxStackSize());
         file.set(path + ".inventorytitle", inventory.getTitle());
         file.set(path + ".inventorysize", inventory.getSize());
@@ -98,9 +96,10 @@ public class FileUtils {
         if (file.contains(path)) {
             Inventory inv = Bukkit.createInventory(null, file.getInt(path + ".inventorysize"), file.getString(path + ".inventorytitle"));
             inv.setMaxStackSize(file.getInt(path + ".maxstacksize"));
-            for (int i = 0; i < inv.getSize(); i++) {
-                if (file.contains(path + ".contents." + i)) inv.setItem(i, file.getItemStack(path + ".contents." + i));
-            }
+            @SuppressWarnings("unchecked") List<ItemStack> items = (List<ItemStack>) file.get(path + ".contents");
+            ItemStack[] itemsArray = new ItemStack[items.size()];
+            itemsArray = items.toArray(itemsArray);
+            inv.setContents(itemsArray);
             return inv;
         }
         return null;

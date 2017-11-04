@@ -29,7 +29,7 @@ public class PlayerListeners implements Listener {
             }
         }
         if (!isStored) return;
-        plugin.fUtils.saveInventory(inv, p, plugin.fUtils.getIntegerFromMap(plugin.inventories.get(inv)));
+        plugin.fUtils.saveInventory(inv, plugin.fUtils.getPlayerFromMap(plugin.inventories.get(inv)), plugin.fUtils.getIntegerFromMap(plugin.inventories.get(inv)));
         p.sendMessage(plugin.getColoredMessage("InventoryClosed"));
         plugin.inventories.remove(inv);
     }
