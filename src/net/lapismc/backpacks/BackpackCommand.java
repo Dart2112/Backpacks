@@ -96,19 +96,15 @@ public class BackpackCommand implements CommandExecutor {
                     p.sendMessage(plugin.getColoredMessage("Error.PlayerDoesntExist"));
                     return true;
                 }
-                Integer sizeNumb = 0;
                 Integer sizeValue = parseSize(size);
-                if (sizeValue == 1) {
-                    sizeNumb = plugin.getConfig().getInt("Size.small");
-                } else if (sizeValue == 2) {
-                    sizeNumb = plugin.getConfig().getInt("Size.medium");
-                } else if (sizeValue == 3) {
-                    sizeNumb = plugin.getConfig().getInt("Size.large");
-                }
-                Inventory inv = Bukkit.createInventory(null, sizeNumb, ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("InventoryNameFormat")
-                        .replaceAll("%player%", target.getName()).replaceAll("%number%", number + "").replaceAll("%size%", size)));
+                Inventory inv = plugin.fUtils.getInventory(target, Integer.parseInt(number), sizeValue);
+                inv.clear();
                 plugin.fUtils.saveInventory(inv, target, Integer.parseInt(number));
-                p.sendMessage(plugin.getColoredMessage("Clear"));
+                Map<OfflinePlayer, Integer> map = new HashMap<>();
+                Integer configInventoryNumber = sizeValue * plugin.getConfig().getInt("BackpacksPerSize") + Integer.parseInt(number);
+                map.put(target, configInventoryNumber);
+                plugin.inventories.put(inv, map);
+                p.sendMessage(plugin.getColoredMessage("Clear").replaceAll("%Player%", target.getName()));
             }
         }
         return true;
@@ -136,11 +132,9 @@ public class BackpackCommand implements CommandExecutor {
         }
         Integer configInventoryNumber = sizeInt * plugin.getConfig().getInt("BackpacksPerSize") + inventoryNumber;
         Inventory inv = plugin.fUtils.getInventory(op, inventoryNumber, sizeInt);
-        if (!plugin.inventories.containsKey(inv)) {
-            Map<OfflinePlayer, Integer> map = new HashMap<>();
-            map.put(op, configInventoryNumber);
-            plugin.inventories.put(inv, map);
-        }
+        Map<OfflinePlayer, Integer> map = new HashMap<>();
+        map.put(op, configInventoryNumber);
+        plugin.inventories.put(inv, map);
         return inv;
     }
 
