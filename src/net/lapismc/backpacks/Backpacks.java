@@ -1,12 +1,10 @@
 package net.lapismc.backpacks;
 
 import net.lapismc.backpacks.utils.FileUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -31,15 +29,9 @@ public class Backpacks extends JavaPlugin {
     }
 
     public void onDisable() {
-        //Save inventories that are open...
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            Inventory inv = p.getOpenInventory().getTopInventory();
-
-            if (!inventories.containsKey(inv)) return;
-
+        //Save inventories that are loaded
+        for (Inventory inv : inventories.keySet()) {
             fUtils.saveInventory(inv, fUtils.getPlayerFromMap(inventories.get(inv)), fUtils.getIntegerFromMap(inventories.get(inv)));
-
-            inventories.remove(inv);
         }
     }
 
@@ -63,8 +55,8 @@ public class Backpacks extends JavaPlugin {
         return ChatColor.translateAlternateColorCodes('&', messages.getString(path));
     }
 
-    String getMessage(String path) {
-        return ChatColor.stripColor(getColoredMessage(path));
+    String getMessage() {
+        return ChatColor.stripColor(getColoredMessage("Error.MustBePlayer"));
     }
 
 }

@@ -25,7 +25,7 @@ public class BackpackCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (cmd.getName().equalsIgnoreCase("backpacks")) {
             if (!(sender instanceof Player)) {
-                sender.sendMessage(plugin.getMessage("Error.MustBePlayer"));
+                sender.sendMessage(plugin.getMessage());
                 return true;
             }
             Player p = (Player) sender;
