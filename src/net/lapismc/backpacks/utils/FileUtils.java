@@ -74,7 +74,19 @@ public class FileUtils {
             sizeName = "NULL";
         }
         Integer configInventoryNumber = size * plugin.getConfig().getInt("BackpacksPerSize") + number;
-        Inventory inv = getInventory(config, configInventoryNumber + "");
+        boolean isStored = false;
+        Inventory inv = null;
+        for (Inventory i : plugin.inventories.keySet()) {
+            if (i.getName().equals(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("InventoryNameFormat")
+                    .replaceAll("%player%", player.getName()).replaceAll("%number%", number + "").replaceAll("%size%", sizeName)))) {
+                isStored = true;
+                inv = i;
+            }
+        }
+        if (isStored) {
+            return inv;
+        }
+        inv = getInventory(config, configInventoryNumber + "");
         if (inv == null) {
             return Bukkit.createInventory(null, invSize, ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("InventoryNameFormat")
                     .replaceAll("%player%", player.getName()).replaceAll("%number%", number + "").replaceAll("%size%", sizeName)));
@@ -96,6 +108,9 @@ public class FileUtils {
         if (file.contains(path)) {
             Inventory inv = Bukkit.createInventory(null, file.getInt(path + ".inventorysize"), file.getString(path + ".inventorytitle"));
             inv.setMaxStackSize(file.getInt(path + ".maxstacksize"));
+            if (!(file.get(path + ".contents") instanceof List)) {
+                return null;
+            }
             @SuppressWarnings("unchecked") List<ItemStack> items = (List<ItemStack>) file.get(path + ".contents");
             ItemStack[] itemsArray = new ItemStack[items.size()];
             itemsArray = items.toArray(itemsArray);

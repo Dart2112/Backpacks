@@ -31,7 +31,6 @@ public class PlayerListeners implements Listener {
         if (!isStored) return;
         plugin.fUtils.saveInventory(inv, plugin.fUtils.getPlayerFromMap(plugin.inventories.get(inv)), plugin.fUtils.getIntegerFromMap(plugin.inventories.get(inv)));
         p.sendMessage(plugin.getColoredMessage("InventoryClosed"));
-        plugin.inventories.remove(inv);
     }
 
     @EventHandler
@@ -56,11 +55,14 @@ public class PlayerListeners implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         Player p = event.getPlayer();
         Inventory inv = p.getOpenInventory().getTopInventory();
-
-        if (!plugin.inventories.containsKey(inv)) return;
-
-        plugin.fUtils.saveInventory(inv, p, plugin.fUtils.getIntegerFromMap(plugin.inventories.get(inv)));
-
+        boolean isStored = false;
+        for (Inventory i : plugin.inventories.keySet()) {
+            if (i.getName().equals(inv.getName())) {
+                isStored = true;
+            }
+        }
+        if (!isStored) return;
+        plugin.fUtils.saveInventory(inv, plugin.fUtils.getPlayerFromMap(plugin.inventories.get(inv)), plugin.fUtils.getIntegerFromMap(plugin.inventories.get(inv)));
         plugin.inventories.remove(inv);
     }
 

@@ -136,9 +136,11 @@ public class BackpackCommand implements CommandExecutor {
         }
         Integer configInventoryNumber = sizeInt * plugin.getConfig().getInt("BackpacksPerSize") + inventoryNumber;
         Inventory inv = plugin.fUtils.getInventory(op, inventoryNumber, sizeInt);
-        Map<OfflinePlayer, Integer> map = new HashMap<>();
-        map.put(op, configInventoryNumber);
-        plugin.inventories.put(inv, map);
+        if (!plugin.inventories.containsKey(inv)) {
+            Map<OfflinePlayer, Integer> map = new HashMap<>();
+            map.put(op, configInventoryNumber);
+            plugin.inventories.put(inv, map);
+        }
         return inv;
     }
 

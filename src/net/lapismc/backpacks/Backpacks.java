@@ -19,7 +19,7 @@ public class Backpacks extends JavaPlugin {
 
     FileUtils fUtils;
     private YamlConfiguration messages;
-    HashMap<Inventory, Map<OfflinePlayer, Integer>> inventories = new HashMap<>();
+    public HashMap<Inventory, Map<OfflinePlayer, Integer>> inventories = new HashMap<>();
 
     public void onEnable() {
         fUtils = new FileUtils(this);
