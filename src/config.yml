@@ -1,4 +1,4 @@
-InventoryNameFormat: "&9%size% backpack number &c#&a%number%"
+InventoryNameFormat: "&9%player%'s %size% backpack &c#&a%number%"
 BackpacksPerSize: 10
 Size:
   small: 9
