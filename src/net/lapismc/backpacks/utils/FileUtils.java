@@ -86,7 +86,8 @@ public class FileUtils {
         if (isStored) {
             return inv;
         }
-        inv = getInventory(config, configInventoryNumber + "");
+        inv = getInventory(config, configInventoryNumber + "", ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("InventoryNameFormat")
+                .replaceAll("%player%", player.getName()).replaceAll("%number%", number + "").replaceAll("%size%", sizeName)));
         if (inv == null) {
             return Bukkit.createInventory(null, invSize, ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("InventoryNameFormat")
                     .replaceAll("%player%", player.getName()).replaceAll("%number%", number + "").replaceAll("%size%", sizeName)));
@@ -100,13 +101,12 @@ public class FileUtils {
         List<ItemStack> inv = Arrays.asList(inventory.getContents());
         file.set(path + ".contents", inv);
         file.set(path + ".maxstacksize", inventory.getMaxStackSize());
-        file.set(path + ".inventorytitle", inventory.getTitle());
         file.set(path + ".inventorysize", inventory.getSize());
     }
 
-    private Inventory getInventory(FileConfiguration file, String path) {
+    private Inventory getInventory(FileConfiguration file, String path, String invName) {
         if (file.contains(path)) {
-            Inventory inv = Bukkit.createInventory(null, file.getInt(path + ".inventorysize"), file.getString(path + ".inventorytitle"));
+            Inventory inv = Bukkit.createInventory(null, file.getInt(path + ".inventorysize"), invName);
             inv.setMaxStackSize(file.getInt(path + ".maxstacksize"));
             if (!(file.get(path + ".contents") instanceof List)) {
                 return null;

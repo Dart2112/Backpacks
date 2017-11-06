@@ -31,7 +31,7 @@ public class BackpackCommand implements CommandExecutor {
             Player p = (Player) sender;
             if (args.length < 1) {
                 sendHelp(sender);
-            } else if (args.length == 1) {
+            } else if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
                 plugin.reloadConfig();
                 plugin.reloadMessages();
             } else if (args.length == 2) {
