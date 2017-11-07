@@ -19,5 +19,5 @@ permissions:
     default: op
     decsription: Players with this permission will be able to access, clear and edit other players backpacks
   backpacks.see:
-    default: false
+    default: op
     description: Player with this permissions will be able to see other players backpacks

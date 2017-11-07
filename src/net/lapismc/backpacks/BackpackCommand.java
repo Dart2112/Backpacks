@@ -34,6 +34,8 @@ public class BackpackCommand implements CommandExecutor {
             } else if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
                 plugin.reloadConfig();
                 plugin.reloadMessages();
+                p.sendMessage(plugin.getColoredMessage("Reload"));
+                return true;
             } else if (args.length == 2) {
                 //backpack large 2
                 String size = args[0];

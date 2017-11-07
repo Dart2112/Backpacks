@@ -40,7 +40,6 @@ public class PlayerListeners implements Listener {
             if (event.getWhoClicked() instanceof Player) {
                 Player p = (Player) event.getWhoClicked();
                 if (plugin.fUtils.getPlayerFromMap(plugin.inventories.get(inv)).getUniqueId() != p.getUniqueId()) {
-                    //check for perms to edit
                     if (!p.hasPermission("backpacks.edit")) {
                         event.setCancelled(true);
                         p.sendMessage(plugin.getColoredMessage("Error.NoPermission"));
