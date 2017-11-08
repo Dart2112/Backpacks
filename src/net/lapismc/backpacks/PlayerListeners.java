@@ -35,10 +35,10 @@ public class PlayerListeners implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        Inventory inv = event.getClickedInventory();
-        if (plugin.inventories.containsKey(inv)) {
-            if (event.getWhoClicked() instanceof Player) {
-                Player p = (Player) event.getWhoClicked();
+        if (event.getWhoClicked() instanceof Player) {
+            Player p = (Player) event.getWhoClicked();
+            Inventory inv = p.getOpenInventory().getTopInventory();
+            if (plugin.inventories.containsKey(inv)) {
                 if (plugin.fUtils.getPlayerFromMap(plugin.inventories.get(inv)).getUniqueId() != p.getUniqueId()) {
                     if (!p.hasPermission("backpacks.edit")) {
                         event.setCancelled(true);
