@@ -4,6 +4,7 @@ main: net.lapismc.backpacks.Backpacks
 authors: [Dart2112, ElectroBoy2560]
 commands:
   backpacks:
+    aliases: [bp]
     description: Command for accessing your backpacks
 permissions:
   backpacks.small:
